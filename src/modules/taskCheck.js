@@ -1,23 +1,19 @@
-function hi() {
-  console.log('hi from taskStatus');
+const list = JSON.parse(localStorage.getItem('list'));
+
+function toggleStatues(taskId) {
+  list[taskId].comp = !list[taskId].comp;
+  localStorage.setItem('list', JSON.stringify(list));
 }
 
-function hi2() {
-    console.log('2nd function from taskCheck')
+function getTaskId(e) {
+  return e.target.getAttribute('data-id');
 }
 
-function checkboxListener() {
-    document.addEventListener('click', e => {
-        if (e.target.type === "checkbox" ) {
-            if (e.target.checked == true) {
-                console.log(true);
-            } else {
-                console.log(false)
-            }
-        }
-    })
+export default function checkboxListener() {
+  document.addEventListener('click', (e) => {
+    if (e.target.type === 'checkbox') {
+      const taskId = getTaskId(e);
+      toggleStatues(taskId);
+    }
+  });
 }
-
-checkboxListener()
-
-export {hi, hi2}
