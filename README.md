@@ -5,7 +5,7 @@
 
 > Milestone 1 : A simple HTML list of To Do tasks. will be built using webpack and served by a webpack dev server.
 
-> Milestone 2 : to come later
+> Milestone 2 : Add some interactive functionality. The user will also be able to mark task completion by selecting the corresponding checkbox (or undo it by unchecking the checkbox). The updated tasks list will be stored in local storage.
 
 > Milestone 3 : to come later
 
