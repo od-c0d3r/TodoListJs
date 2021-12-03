@@ -25,6 +25,7 @@
 - JavaScript
 
 ## Install
+
 - From your terminal enter the following in order :  
   - `git clone https://github.com/od-c0d3r/todoJs.git`
   - `code todoJs`

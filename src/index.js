@@ -1,5 +1,10 @@
 import './style.scss';
 
+import {hi,hi2} from './modules/taskCheck'
+
+hi();
+hi2();
+
 const list = [{
   desc: 'This is the area where you should name your Task',
   comp: false,
