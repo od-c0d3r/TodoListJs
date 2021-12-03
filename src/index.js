@@ -1,7 +1,7 @@
 import './style.scss';
 import checkboxListener from './modules/taskCheck.js';
 
-let list = [{
+const list = [{
   desc: 'This is the area where you should name your Task',
   comp: false,
   index: 0,
@@ -23,15 +23,15 @@ function setTasksToLocalStorage() {
 }
 
 function getTasksFromLocalStorage() {
-  let list = JSON.parse(localStorage.getItem('list'));
+  const list = JSON.parse(localStorage.getItem('list'));
   return list == null ? [] : list;
 }
 
 function displayTasks() {
-  let list = getTasksFromLocalStorage();
+  const list = getTasksFromLocalStorage();
   const container = document.getElementById('list');
   container.innerHTML = '';
-  
+
   if (list.length === 0) {
     container.innerHTML = 'List is empty';
   } else {
