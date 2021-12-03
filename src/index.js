@@ -20,7 +20,6 @@ function displayTasks() {
     container.innerHTML = 'List is empty';
   } else {
     list.forEach((task, index, list) => {
-      console.log(task)
       const listItem = document.createElement('div');
       const checkbox = document.createElement('input');
       const taskData = document.createElement('span');
@@ -28,7 +27,11 @@ function displayTasks() {
 
       taskData.innerText = `${task.desc}`;
       checkbox.type = 'checkbox';
-      task.comp == true ? checkbox.checked = true : checkbox.checked = false;
+      if (task.comp === true) {
+        checkbox.checked = true;
+      } else {
+        checkbox.checked = false;
+      }
       checkbox.setAttribute('data-id', list.indexOf(task));
       taskBtn.setAttribute('data-id', list.indexOf(task));
       taskBtn.style.cssFloat = 'right';
@@ -43,9 +46,9 @@ function displayTasks() {
 }
 
 function listInit() {
-  let listLocal = getTasksFromLocalStorage();
-  if (listLocal.length == 0) {
-    let list = [{
+  const listLocal = getTasksFromLocalStorage();
+  if (listLocal.length === 0) {
+    const list = [{
       desc: 'This is the area where you should name your Task',
       comp: false,
       index: 0,
@@ -62,9 +65,8 @@ function listInit() {
     }];
     setTasksToLocalStorage(list);
     return list;
-  } else {
-    return listLocal;
-  } 
+  }
+  return listLocal;
 }
 
 listInit();
