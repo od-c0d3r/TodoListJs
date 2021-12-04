@@ -1,6 +1,5 @@
-const list = JSON.parse(localStorage.getItem('list'));
-
 function toggleStatues(taskId) {
+  let list = JSON.parse(localStorage.getItem('list'));
   list[taskId].comp = !list[taskId].comp;
   localStorage.setItem('list', JSON.stringify(list));
 }

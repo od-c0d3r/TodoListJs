@@ -1,5 +1,6 @@
 import './style.scss';
 import checkboxListener from './modules/taskCheck.js';
+import userWatcher from './modules/crud.js'
 
 function setTasksToLocalStorage(list) {
   localStorage.setItem('list', JSON.stringify(list));
@@ -47,3 +48,4 @@ function displayTasks() {
 
 displayTasks();
 checkboxListener();
+userWatcher(displayTasks);
