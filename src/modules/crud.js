@@ -1,7 +1,7 @@
 let editFlag = false;
 let editElement = '';
 
-function getTasksFromLocalStorage() {
+export function getTasksFromLocalStorage() {
   const list = JSON.parse(localStorage.getItem('list'));
   return list == null ? [] : list;
 }
@@ -73,7 +73,7 @@ function checkEditFlag() {
   }
 }
 
-export default function userWatcher(displayTasks) {
+export function userWatcher(displayTasks) {
   document.addEventListener('submit', (e) => {
     if (e.target.id === 'editForm') {
       const desc = document.getElementById('editInput').value;

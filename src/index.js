@@ -1,16 +1,6 @@
 import './style.scss';
 import checkboxListener from './modules/taskCheck.js';
-import userWatcher from './modules/crud.js';
-
-// function setTasksToLocalStorage(list) {
-//   localStorage.setItem('list', JSON.stringify(list));
-//   return true;
-// }
-
-function getTasksFromLocalStorage() { // import it from crud.js
-  const list = JSON.parse(localStorage.getItem('list'));
-  return list == null ? [] : list;
-}
+import { userWatcher, getTasksFromLocalStorage } from './modules/crud.js';
 
 function displayTasks() {
   const list = getTasksFromLocalStorage();

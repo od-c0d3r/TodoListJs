@@ -7,9 +7,7 @@
 
 > Milestone 2 : The user will be able to mark task completion by selecting the corresponding checkbox (or undo it by unchecking the checkbox). The updated tasks list will be stored in local storage.
 
-> Milestone 3 : to come later
-
-> Milestone 4 : to come later
+> Milestone 3 : The CRUD (create, update, delete) methods Implemented. All the elements of the user interface will be fully functional.
 
 <div style="float:right;">
 
