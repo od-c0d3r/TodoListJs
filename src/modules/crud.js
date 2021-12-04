@@ -1,6 +1,5 @@
 let editFlag = false;
 let editElement = '';
-let removeElement = '';
 
 function getTasksFromLocalStorage() {
   const list = JSON.parse(localStorage.getItem('list'));
@@ -39,7 +38,7 @@ function remove(id) {
 
 function clearCompleted() {
   const list = getTasksFromLocalStorage();
-  const curatedList = list.filter(task => task.comp === false);
+  const curatedList = list.filter((task) => task.comp === false);
   setTasksToLocalStorage(curatedList);
   return list;
 }
@@ -50,9 +49,9 @@ function showEditInput(div) {
   const editInput = document.createElement('div');
   const trashIcon = document.createElement('span');
 
-  trashIcon.id = "removeBtn";
+  trashIcon.id = 'removeBtn';
   trashIcon.innerHTML = '🗑️';
-  trashIcon.setAttribute('data-id', div.getAttribute('data-id'))
+  trashIcon.setAttribute('data-id', div.getAttribute('data-id'));
 
   editInput.innerHTML = `
     <form id="editForm" style="display: inline-block; width: 96%;">
@@ -63,9 +62,9 @@ function showEditInput(div) {
 
 function hideEditInput() {
   editFlag = false;
-  if (document.getElementById('editForm').parentElement){
-    document.getElementById('editForm').parentElement.replaceWith(editElement)
-  };
+  if (document.getElementById('editForm').parentElement) {
+    document.getElementById('editForm').parentElement.replaceWith(editElement);
+  }
 }
 
 function checkEditFlag() {
@@ -95,17 +94,15 @@ export default function userWatcher(displayTasks) {
     if (e.target.className === 'listItem' || e.target.className === 'listSpan') {
       checkEditFlag();
       if (e.target.className === 'listItem') {
-        console.log(e.target)
         showEditInput(e.target);
       } else {
-        console.log(e.target.parentElement)
         showEditInput(e.target.parentElement);
       }
     } else if (e.target.id === 'removeBtn') {
-      remove(e.target.getAttribute('data-id'))
+      remove(e.target.getAttribute('data-id'));
       displayTasks();
-    } else if (e.target.id === "clearBtn") {
-      clearCompleted()
+    } else if (e.target.id === 'clearBtn') {
+      clearCompleted();
       displayTasks();
     }
   });
