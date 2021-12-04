@@ -1,15 +1,6 @@
 import './style.scss';
 import checkboxListener from './modules/taskCheck.js';
-
-function setTasksToLocalStorage(list) {
-  localStorage.setItem('list', JSON.stringify(list));
-  return true;
-}
-
-function getTasksFromLocalStorage() {
-  const list = JSON.parse(localStorage.getItem('list'));
-  return list == null ? [] : list;
-}
+import { userWatcher, getTasksFromLocalStorage } from './modules/crud.js';
 
 function displayTasks() {
   const list = getTasksFromLocalStorage();
@@ -17,8 +8,10 @@ function displayTasks() {
   container.innerHTML = '';
 
   if (list.length === 0) {
-    container.innerHTML = 'List is empty';
+    container.innerHTML = '💭 Add somthing you wanna finish today 💭';
+    container.classList.add('emptyList');
   } else {
+    container.classList.remove('emptyList');
     list.forEach((task, index, list) => {
       const listItem = document.createElement('div');
       const checkbox = document.createElement('input');
@@ -26,49 +19,27 @@ function displayTasks() {
       const taskBtn = document.createElement('button');
 
       taskData.innerText = `${task.desc}`;
+      taskData.className = 'listSpan';
       checkbox.type = 'checkbox';
       if (task.comp === true) {
         checkbox.checked = true;
       } else {
         checkbox.checked = false;
       }
-      checkbox.setAttribute('data-id', list.indexOf(task));
-      taskBtn.setAttribute('data-id', list.indexOf(task));
+      listItem.setAttribute('data-id', list.indexOf(task) + 1);
+      checkbox.setAttribute('data-id', list.indexOf(task) + 1);
+      taskBtn.setAttribute('data-id', list.indexOf(task) + 1);
       taskBtn.style.cssFloat = 'right';
       taskBtn.className = 'taskBtn';
       taskBtn.innerText = ':';
 
       listItem.className = 'listItem';
-      listItem.append(checkbox, taskData, taskBtn);
+      listItem.append(checkbox, ' ', taskData, taskBtn);
       container.append(listItem);
     });
   }
 }
 
-function listInit() {
-  const listLocal = getTasksFromLocalStorage();
-  if (listLocal.length === 0) {
-    const list = [{
-      desc: 'This is the area where you should name your Task',
-      comp: false,
-      index: 0,
-    },
-    {
-      desc: 'Task 2',
-      comp: false,
-      index: 1,
-    },
-    {
-      desc: 'Task 3',
-      comp: false,
-      index: 2,
-    }];
-    setTasksToLocalStorage(list);
-    return list;
-  }
-  return listLocal;
-}
-
-listInit();
 displayTasks();
 checkboxListener();
+userWatcher(displayTasks);
