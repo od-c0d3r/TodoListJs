@@ -1,6 +1,6 @@
 function toggleStatues(taskId) {
-  let list = JSON.parse(localStorage.getItem('list'));
-  list[taskId].comp = !list[taskId].comp;
+  const list = JSON.parse(localStorage.getItem('list'));
+  list[taskId - 1].comp = !list[taskId - 1].comp;
   localStorage.setItem('list', JSON.stringify(list));
 }
 
