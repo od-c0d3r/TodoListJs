@@ -3,26 +3,21 @@ function getTasksFromLocalStorage() {
     return list == null ? [] : list;
 }
 
+function setTasksToLocalStorage(list) {
+    localStorage.setItem('list', JSON.stringify(list));
+    return true;
+}
+
 function add(text) {
     let list = getTasksFromLocalStorage();
-    let task = {
+    list.push({
         desc: text,
         comp: false,
         index: list.length+1
-    }
-    list.push(task)
-    localStorage.setItem('list', JSON.stringify(list));
+    })
+    setTasksToLocalStorage(list);
     return list;
 }
-
-// addBook(title, author) {
-//     const book = new Book(title, author);
-//     book.id = this.books.length;
-//     this.books.push(book);
-//     this.setBooksToLocalStorage();
-//     this.displayBooks();
-//     return this.books;
-//   }
 
 function edit(params) {
     
@@ -36,13 +31,18 @@ function clearAll(params) {
     
 }
 
-export default function userWatcher(display) {
+export default function userWatcher(displayTasks) {
     document.addEventListener('submit', (e) => {
         let desc = document.getElementById('taskTextInput').value;
         add(desc);
-        e.target.reset()
-        display()
+        e.target.reset();
+        displayTasks();
         e.preventDefault();
+    });
+    document.addEventListener('dblclick', (e) => {
+        if (e.target.className == 'listItem' || e.target.className == 'listSpan') {
+            console.log(e);
+        }
     });
   }
   

@@ -7,7 +7,7 @@ function setTasksToLocalStorage(list) {
   return true;
 }
 
-function getTasksFromLocalStorage() {
+function getTasksFromLocalStorage() { // import it from crud.js
   const list = JSON.parse(localStorage.getItem('list'));
   return list == null ? [] : list;
 }
@@ -19,7 +19,9 @@ function displayTasks() {
 
   if (list.length === 0) {
     container.innerHTML = '💭 Add somthing you wanna finish today 💭';
+    container.classList.add('emptyList');
   } else {
+    container.classList.remove('emptyList');
     list.forEach((task, index, list) => {
       const listItem = document.createElement('div');
       const checkbox = document.createElement('input');
@@ -27,6 +29,7 @@ function displayTasks() {
       const taskBtn = document.createElement('button');
 
       taskData.innerText = `${task.desc}`;
+      taskData.className = "listSpan"
       checkbox.type = 'checkbox';
       if (task.comp === true) {
         checkbox.checked = true;
@@ -40,7 +43,7 @@ function displayTasks() {
       taskBtn.innerText = ':';
 
       listItem.className = 'listItem';
-      listItem.append(checkbox, taskData, taskBtn);
+      listItem.append(checkbox,' ', taskData, taskBtn);
       container.append(listItem);
     });
   }
