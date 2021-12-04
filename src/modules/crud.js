@@ -37,8 +37,11 @@ function remove(id) {
   return list;
 }
 
-function clearCompleted(params) {
-
+function clearCompleted() {
+  const list = getTasksFromLocalStorage();
+  const curatedList = list.filter(task => task.comp === false);
+  setTasksToLocalStorage(curatedList);
+  return list;
 }
 
 function showEditInput(div) {
@@ -63,12 +66,6 @@ function hideEditInput() {
   if (document.getElementById('editForm').parentElement){
     document.getElementById('editForm').parentElement.replaceWith(editElement)
   };
-}
-
-function hideTrash() {
-  editFlag = false;
-  let trash = document.getElementById('removeBtn').parentElement;
-  // trash.replaceWith(editElement);
 }
 
 function checkEditFlag() {
@@ -106,6 +103,9 @@ export default function userWatcher(displayTasks) {
       }
     } else if (e.target.id === 'removeBtn') {
       remove(e.target.getAttribute('data-id'))
+      displayTasks();
+    } else if (e.target.id === "clearBtn") {
+      clearCompleted()
       displayTasks();
     }
   });
