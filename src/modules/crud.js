@@ -1,5 +1,6 @@
 let editFlag = false;
 let editElement = '';
+let removeElement = '';
 
 function getTasksFromLocalStorage() {
   const list = JSON.parse(localStorage.getItem('list'));
@@ -29,11 +30,14 @@ function edit(id, text) {
   return list;
 }
 
-function remove(params) {
-
+function remove(id) {
+  const list = getTasksFromLocalStorage();
+  list.splice(id - 1, 1);
+  setTasksToLocalStorage(list);
+  return list;
 }
 
-function clearAll(params) {
+function clearCompleted(params) {
 
 }
 
@@ -41,19 +45,30 @@ function showEditInput(div) {
   editFlag = true;
   editElement = div;
   const editInput = document.createElement('div');
+  const trashIcon = document.createElement('span');
+
+  trashIcon.id = "removeBtn";
+  trashIcon.innerHTML = '🗑️';
+  trashIcon.setAttribute('data-id', div.getAttribute('data-id'))
+
   editInput.innerHTML = `
-    <div>
-        <form id="editForm">
-            <input id="editInput" class="taskTextInputStyle" type="text" data-id="${div.getAttribute('data-id')}" value="${div.innerText.slice(0, -1)}" name="taskTextInput" required>
-        </form>
-    </div>`;
+    <form id="editForm" style="display: inline-block; width: 96%;">
+      <input id="editInput" class="taskTextInputStyle" type="text" data-id="${div.getAttribute('data-id')}" value="${div.innerText.match(/[A-Za-z0-9\s]/g).join('')}" name="taskTextInput" required>
+    </form>${trashIcon.outerHTML}`;
   div.replaceWith(editInput);
 }
 
 function hideEditInput() {
   editFlag = false;
-  const div = document.getElementById('editForm').parentElement;
-  div.replaceWith(editElement);
+  if (document.getElementById('editForm').parentElement){
+    document.getElementById('editForm').parentElement.replaceWith(editElement)
+  };
+}
+
+function hideTrash() {
+  editFlag = false;
+  let trash = document.getElementById('removeBtn').parentElement;
+  // trash.replaceWith(editElement);
 }
 
 function checkEditFlag() {
@@ -83,10 +98,15 @@ export default function userWatcher(displayTasks) {
     if (e.target.className === 'listItem' || e.target.className === 'listSpan') {
       checkEditFlag();
       if (e.target.className === 'listItem') {
+        console.log(e.target)
         showEditInput(e.target);
       } else {
+        console.log(e.target.parentElement)
         showEditInput(e.target.parentElement);
       }
+    } else if (e.target.id === 'removeBtn') {
+      remove(e.target.getAttribute('data-id'))
+      displayTasks();
     }
   });
   document.addEventListener('dblclick', () => {
