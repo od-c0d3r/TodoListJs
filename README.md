@@ -11,8 +11,6 @@
 
 <div style="float:right;">
 
-## Screenshot
-
 <img align="right" src="./doc/app_screenshot.png" style="width:300px;">
 
 </div>
