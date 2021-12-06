@@ -13,7 +13,7 @@
 
 ## Screenshot
 
-<img src="./doc/app_screenshot.png" style="width:300px;">
+<img align="right" src="./doc/app_screenshot.png" style="width:300px;">
 
 </div>
 
