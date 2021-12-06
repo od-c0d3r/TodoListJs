@@ -15,6 +15,10 @@
 
 </div>
 
+## Live Preview 
+
+[https://od-c0d3r.github.io/todoJs/dist/](https://od-c0d3r.github.io/todoJs/dist/)
+
 ## Built With
 
 - HTML & CSS
