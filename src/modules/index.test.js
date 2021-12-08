@@ -1,12 +1,26 @@
-jest.mock('./crud.js')
+jest.mock('./helper.js');
 import { add } from "./crud";
-import {getTasksFromLocalStorage,setTasksToLocalStorage } from './crudMock'
+import { getTasksFromLocalStorage, setTasksToLocalStorage } from './__mocks__/helper.js';
 
-test('test', ()=>{
-    let arr = [1,2,3,4]
-    let obj = {list: [1,2,3]}
+describe('Add and Remove', ()=> {
+    test('add function which returns an array', ()=>{
+        let task = "Write Code";
+        let arr = getTasksFromLocalStorage();
+        let obj = {
+            desc: `${task}`,
+            comp: false,
+            index: arr.length + 1
+        };
     
-    expect(getTasksFromLocalStorage()).toEqual([]);
-    expect(setTasksToLocalStorage(arr)).toEqual({list: arr});
-    expect(add('HEllo')).toEqual([{desc: 'HEllo', comp: false, index: 1}])
-});
+        const result = add(task);
+        
+        expect(getTasksFromLocalStorage()).toEqual([]);
+        expect(setTasksToLocalStorage(arr)).toEqual({list: arr});
+        expect(result).toEqual([obj])
+        expect(result.length).toBe(1)
+        expect(typeof(result)).toEqual('object')
+        expect(typeof(result[0].comp)).toEqual('boolean')
+        expect(typeof(result[0].index)).toEqual('number')
+    });
+    
+})
