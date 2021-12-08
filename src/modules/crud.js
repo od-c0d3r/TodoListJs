@@ -1,16 +1,9 @@
+import { getTasksFromLocalStorage, setTasksToLocalStorage } from './helper.js';
+
 let editFlag = false;
 let editElement = '';
 
-export function getTasksFromLocalStorage() {
-  return JSON.parse(localStorage.getItem('list')) || [];
-}
-
-function setTasksToLocalStorage(list) {
-  localStorage.setItem('list', JSON.stringify(list));
-  return true;
-}
-
-function add(text) {
+export function add(text) {
   const list = getTasksFromLocalStorage();
   list.push({
     desc: text,
@@ -28,8 +21,9 @@ function edit(id, text) {
   return list;
 }
 
-function remove(id) {
+export function remove(id) {
   const list = getTasksFromLocalStorage();
+  if (list.length === 0) return list;
   list.splice(id - 1, 1);
   setTasksToLocalStorage(list);
   return list;

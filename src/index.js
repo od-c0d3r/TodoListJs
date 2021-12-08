@@ -1,6 +1,7 @@
 import './style.scss';
 import checkboxListener from './modules/taskCheck.js';
-import { userWatcher, getTasksFromLocalStorage } from './modules/crud.js';
+import { userWatcher } from './modules/crud.js';
+import { getTasksFromLocalStorage } from './modules/helper.js';
 
 function displayTasks() {
   const list = getTasksFromLocalStorage();
@@ -13,7 +14,7 @@ function displayTasks() {
   } else {
     container.classList.remove('emptyList');
     list.forEach((task, index, list) => {
-      const [listItem, checkbox, taskData, taskBtn] = ['div', 'input', 'span', 'button'].map(item=>document.createElement(item));
+      const [listItem, checkbox, taskData, taskBtn] = ['div', 'input', 'span', 'button'].map((item) => document.createElement(item));
 
       taskData.innerText = `${task.desc}`;
       taskData.className = 'listSpan';
@@ -23,7 +24,7 @@ function displayTasks() {
       } else {
         checkbox.checked = false;
       }
-      [listItem, checkbox, taskBtn].forEach( element => element.setAttribute('data-id', list.indexOf(task) + 1));
+      [listItem, checkbox, taskBtn].forEach((element) => element.setAttribute('data-id', list.indexOf(task) + 1));
       taskBtn.style.cssFloat = 'right';
       taskBtn.className = 'taskBtn';
       taskBtn.innerText = ':';

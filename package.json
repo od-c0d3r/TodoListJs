@@ -4,7 +4,7 @@
   "description": "![](https://img.shields.io/badge/Microverse-blueviolet)",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch",
     "watch": "webpack --watch",
     "build": "webpack",
     "start": "webpack serve --open"
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/od-c0d3r/wp-template#readme",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.0",
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
@@ -28,6 +29,7 @@
     "eslint-plugin-import": "^2.25.3",
     "hint": "^6.1.9",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.4.3",
     "sass": "^1.44.0",
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
