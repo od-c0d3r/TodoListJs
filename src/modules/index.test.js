@@ -18,6 +18,7 @@ describe('Add and Remove', ()=> {
         expect(setTasksToLocalStorage(arr)).toEqual({list: arr});
         expect(result).toEqual([obj])
         expect(result.length).toBe(1)
+        expect(result[0].index).toBe(1)
         expect(typeof(result)).toEqual('object')
         expect(typeof(result[0].comp)).toEqual('boolean')
         expect(typeof(result[0].index)).toEqual('number')

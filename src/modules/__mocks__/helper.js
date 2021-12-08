@@ -1,5 +1,4 @@
 export function getTasksFromLocalStorage() {
-    console.log('hello')
     return [];
 }
 
