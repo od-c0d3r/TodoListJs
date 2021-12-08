@@ -13,10 +13,7 @@ function displayTasks() {
   } else {
     container.classList.remove('emptyList');
     list.forEach((task, index, list) => {
-      const listItem = document.createElement('div');
-      const checkbox = document.createElement('input');
-      const taskData = document.createElement('span');
-      const taskBtn = document.createElement('button');
+      const [listItem, checkbox, taskData, taskBtn] = ['div', 'input', 'span', 'button'].map(item=>document.createElement(item));
 
       taskData.innerText = `${task.desc}`;
       taskData.className = 'listSpan';
@@ -26,9 +23,7 @@ function displayTasks() {
       } else {
         checkbox.checked = false;
       }
-      listItem.setAttribute('data-id', list.indexOf(task) + 1);
-      checkbox.setAttribute('data-id', list.indexOf(task) + 1);
-      taskBtn.setAttribute('data-id', list.indexOf(task) + 1);
+      [listItem, checkbox, taskBtn].forEach( element => element.setAttribute('data-id', list.indexOf(task) + 1));
       taskBtn.style.cssFloat = 'right';
       taskBtn.className = 'taskBtn';
       taskBtn.innerText = ':';

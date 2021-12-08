@@ -2,8 +2,7 @@ let editFlag = false;
 let editElement = '';
 
 export function getTasksFromLocalStorage() {
-  const list = JSON.parse(localStorage.getItem('list'));
-  return list == null ? [] : list;
+  return JSON.parse(localStorage.getItem('list')) || [];
 }
 
 function setTasksToLocalStorage(list) {
@@ -75,19 +74,18 @@ function checkEditFlag() {
 
 export function userWatcher(displayTasks) {
   document.addEventListener('submit', (e) => {
+    e.preventDefault();
     if (e.target.id === 'editForm') {
       const desc = document.getElementById('editInput').value;
       const id = e.target.elements[0].getAttribute('data-id');
       edit(id, desc);
       e.target.reset();
       displayTasks();
-      e.preventDefault();
     } else {
       const desc = document.getElementById('taskTextInput').value;
       add(desc);
       e.target.reset();
       displayTasks();
-      e.preventDefault();
     }
   });
   document.addEventListener('click', (e) => {
@@ -106,7 +104,5 @@ export function userWatcher(displayTasks) {
       displayTasks();
     }
   });
-  document.addEventListener('dblclick', () => {
-    checkEditFlag();
-  });
+  document.addEventListener('dblclick', () => checkEditFlag());
 }
