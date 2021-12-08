@@ -17,11 +17,11 @@ describe('Add and Remove', () => {
     add(task);
     const result = add(task);
 
-    const second = add(task)[1];
+    const second = add(task)[3];
     expect(setTasksToLocalStorage(arr)).toEqual({ list: arr });
-    expect(result).toEqual([arr[0], obj]);
-    expect(result.length).toBe(2);
-    expect(result[1].index).toBe(2);
+    expect(result).toEqual([...arr, obj]);
+    expect(result.length).toBe(4);
+    expect(result[3].index).toBe(4);
     expect(second).toEqual(obj);
     expect(typeof (result)).toEqual('object');
     expect(typeof (result[0].comp)).toEqual('boolean');
@@ -29,11 +29,20 @@ describe('Add and Remove', () => {
   });
 
   test('deletes a task obj from array', () => {
-    const expected = [];
+    const expected = [{
+      desc: 'Task 2',
+      comp: true,
+      index: 2,
+    },
+    {
+      desc: 'Task 3',
+      comp: true,
+      index: 3,
+    }];
     const result = remove(1);
     expect(result).toEqual(expected);
     expect(typeof result).toBe('object');
-    expect(result.length).toEqual(0);
+    expect(result.length).toEqual(2);
   });
 });
 
@@ -41,28 +50,28 @@ describe('Edit and Update', () => {
   const id = 1;
   test('edits a task object description', () => {
     const text = 'new desc';
-    const expected = [{
+    const expected = {
       desc: text,
       comp: false,
       index: 1
-    }];
+    };
     const result = edit(id, text);
     const beforeEdit= getTasksFromLocalStorage()[0].desc;
-    const afterEdit = result[0].desc
+    const afterEdit = result.desc
     expect(result).toEqual(expected);
     expect(beforeEdit!==afterEdit).toBeTruthy();
     expect(typeof result).toEqual('object');
   })
 
   test('updates the status of the completed', ()=> {
-    const expected = [{
+    const expected = {
       desc: 'Task 1',
       comp: true,
       index: 1
-    }]
+    }
     const result = toggleStatues(id)
     const beforeChange =  getTasksFromLocalStorage()[0].comp;
-    const afterChange = result[0].comp
+    const afterChange = result.comp
     expect(result).toEqual(expected)
     expect(beforeChange).toBeFalsy()
     expect(afterChange).toBeTruthy()
@@ -72,8 +81,15 @@ describe('Edit and Update', () => {
 });
 
 describe('clear all objects with completed attribute',()=>{
-  let expected = toggleStatues(2)
+  let expected = [{
+    desc: 'Task 1',
+    comp: false,
+    index: 1,
+  }]
 
   let result = clearCompleted()
   expect(result).toEqual(expected)
+  expect(result.length).toEqual(1)
+  expect(typeof result).toBe('object')
+  expect(result[0].comp).toBe(false);
 })

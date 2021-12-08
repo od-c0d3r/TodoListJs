@@ -18,7 +18,7 @@ export function edit(id, text) {
   const list = getTasksFromLocalStorage();
   list[id - 1].desc = text;
   setTasksToLocalStorage(list);
-  return list;
+  return list[id-1];
 }
 
 export function remove(id) {
@@ -33,7 +33,7 @@ export function clearCompleted() {
   const list = getTasksFromLocalStorage();
   const curatedList = list.filter((task) => task.comp === false);
   setTasksToLocalStorage(curatedList);
-  return list;
+  return curatedList;
 }
 
 function showEditInput(div) {

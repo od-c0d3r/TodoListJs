@@ -1,5 +1,6 @@
 export function getTasksFromLocalStorage() {
-  return [{
+  return [
+  {
     desc: 'Task 1',
     comp: false,
     index: 1,
@@ -7,8 +8,14 @@ export function getTasksFromLocalStorage() {
   {
     desc: 'Task 2',
     comp: true,
-    index: 1,
-  }];
+    index: 2,
+  },
+  {
+    desc: 'Task 3',
+    comp: true,
+    index: 3,
+  }
+];
 }
 
 export function setTasksToLocalStorage(arr) {

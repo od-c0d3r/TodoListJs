@@ -4,7 +4,7 @@ export function toggleStatues(taskId) {
   const list = getTasksFromLocalStorage();
   list[taskId - 1].comp = !list[taskId - 1].comp;
   setTasksToLocalStorage(list)
-  return list;
+  return list[taskId - 1];
 }
 
 function getTaskId(e) {
