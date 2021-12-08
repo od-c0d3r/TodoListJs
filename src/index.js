@@ -1,6 +1,7 @@
 import './style.scss';
 import checkboxListener from './modules/taskCheck.js';
-import { userWatcher, getTasksFromLocalStorage } from './modules/crud.js';
+import { userWatcher } from './modules/crud.js';
+import { getTasksFromLocalStorage } from './modules/helper.js';
 
 function displayTasks() {
   const list = getTasksFromLocalStorage();
