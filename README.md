@@ -23,6 +23,7 @@
 
 - HTML & CSS
 - JavaScript
+- Jest for testing
 
 ## Install
 
@@ -31,8 +32,15 @@
   - `code todoJs`
   - `npm i`
   - `npm run start`
+- To run `Tests`
+  - `npm run test`
 
 ## Authors
+
+👤 **Anselem Odimegwu**
+
+- GitHub: [@AnselemOdims](https://github.com/AnselemOdims)
+- LinkedIn: [Anselem Odimegwu](https://www.linkedin.com/in/anselem-odimegwu/)
 
 👤 **Omar R.**
 
