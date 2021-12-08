@@ -4,7 +4,7 @@
   "description": "![](https://img.shields.io/badge/Microverse-blueviolet)",
   "private": true,
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "watch": "webpack --watch",
     "build": "webpack",
     "start": "webpack serve --open"

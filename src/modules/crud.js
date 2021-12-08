@@ -1,4 +1,4 @@
-import { getTasksFromLocalStorage, setTasksToLocalStorage } from './helper.js';
+import { getTasksFromLocalStorage, setTasksToLocalStorage } from '../../test/helper.js';
 
 let editFlag = false;
 let editElement = '';
@@ -14,7 +14,7 @@ export function add(text) {
   return list;
 }
 
-function edit(id, text) {
+export function edit(id, text) {
   const list = getTasksFromLocalStorage();
   list[id - 1].desc = text;
   setTasksToLocalStorage(list);

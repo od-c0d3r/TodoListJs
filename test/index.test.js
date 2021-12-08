@@ -1,4 +1,4 @@
-import { add, remove } from './crud.js';
+import { add, remove, edit } from '../src/modules/crud.js';
 import { getTasksFromLocalStorage, setTasksToLocalStorage } from './__mocks__/helper.js';
 
 jest.mock('./helper.js');
@@ -35,3 +35,22 @@ describe('Add and Remove', () => {
     expect(result.length).toEqual(0);
   });
 });
+
+describe('Edit and Update', () => {
+  test('edits a task object description', () => {
+    
+    const id = 1;
+    const text = 'new desc';
+    const expected = [{
+      desc: text,
+      comp: false,
+      index: 1
+    }];
+    const result = edit(id, text);
+    const beforeEdit= getTasksFromLocalStorage()[0].desc;
+    const afterEdit = result[0].desc
+    expect(result).toEqual(expected);
+    expect(beforeEdit!==afterEdit).toBeTruthy();
+    expect(typeof result).toEqual('object');
+  })
+})

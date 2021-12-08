@@ -32,7 +32,7 @@
   - `code todoJs`
   - `npm i`
   - `npm run start`
-- To run `Tests`
+- To run Jest tests
   - `npm run test`
 
 ## Authors
