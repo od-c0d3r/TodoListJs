@@ -10,7 +10,7 @@ function setTasksToLocalStorage(list) {
   return true;
 }
 
-function add(text) {
+export function add(text) {
   const list = getTasksFromLocalStorage();
   list.push({
     desc: text,
