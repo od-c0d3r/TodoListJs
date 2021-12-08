@@ -1,4 +1,5 @@
 import { add, remove, edit } from '../src/modules/crud.js';
+import {toggleStatues} from '../src/modules/taskCheck.js'
 import { getTasksFromLocalStorage, setTasksToLocalStorage } from './__mocks__/helper.js';
 
 jest.mock('./helper.js');
@@ -37,9 +38,8 @@ describe('Add and Remove', () => {
 });
 
 describe('Edit and Update', () => {
+  const id = 1;
   test('edits a task object description', () => {
-    
-    const id = 1;
     const text = 'new desc';
     const expected = [{
       desc: text,
@@ -52,5 +52,21 @@ describe('Edit and Update', () => {
     expect(result).toEqual(expected);
     expect(beforeEdit!==afterEdit).toBeTruthy();
     expect(typeof result).toEqual('object');
+  })
+
+  test('updates the status of the completed', ()=> {
+    const expected = [{
+      desc: 'Task 1',
+      comp: true,
+      index: 1
+    }]
+    const result = toggleStatues(id)
+    const beforeChange =  getTasksFromLocalStorage()[0].comp;
+    const afterChange = result[0].comp
+    expect(result).toEqual(expected)
+    expect(beforeChange).toBeFalsy()
+    expect(afterChange).toBeTruthy()
+    expect(beforeChange !== afterChange).toBeTruthy()
+    expect(typeof afterChange).toBe('boolean')
   })
 })

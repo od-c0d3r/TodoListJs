@@ -1,7 +1,10 @@
-function toggleStatues(taskId) {
-  const list = JSON.parse(localStorage.getItem('list'));
+import { getTasksFromLocalStorage, setTasksToLocalStorage } from '../../test/helper.js';
+
+export function toggleStatues(taskId) {
+  const list = getTasksFromLocalStorage();
   list[taskId - 1].comp = !list[taskId - 1].comp;
-  localStorage.setItem('list', JSON.stringify(list));
+  setTasksToLocalStorage(list)
+  return list;
 }
 
 function getTaskId(e) {
