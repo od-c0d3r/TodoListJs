@@ -29,7 +29,7 @@ export function remove(id) {
   return list;
 }
 
-function clearCompleted() {
+export function clearCompleted() {
   const list = getTasksFromLocalStorage();
   const curatedList = list.filter((task) => task.comp === false);
   setTasksToLocalStorage(curatedList);

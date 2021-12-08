@@ -1,4 +1,4 @@
-import { add, remove, edit } from '../src/modules/crud.js';
+import { add, remove, edit, clearCompleted } from '../src/modules/crud.js';
 import {toggleStatues} from '../src/modules/taskCheck.js'
 import { getTasksFromLocalStorage, setTasksToLocalStorage } from './__mocks__/helper.js';
 
@@ -69,4 +69,11 @@ describe('Edit and Update', () => {
     expect(beforeChange !== afterChange).toBeTruthy()
     expect(typeof afterChange).toBe('boolean')
   })
+});
+
+describe('clear all objects with completed attribute',()=>{
+  let expected = toggleStatues(2)
+
+  let result = clearCompleted()
+  expect(result).toEqual(expected)
 })
