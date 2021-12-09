@@ -1,13 +1,14 @@
 import { toggleStatues } from '../src/modules/taskCheck.js'
 import { add, remove, edit, clearCompleted } from '../src/modules/crud.js';
-import { getTasksFromLocalStorage, setTasksToLocalStorage } from './__mocks__/helper.js';
-import { displayTasks } from '../src/index.js';
+import { getTasksFromLocalStorage, setTasksToLocalStorage, getElem } from './__mocks__/helper.js';
 
 import jsdom from 'jsdom';
 const { JSDOM } = jsdom;
-const { document } = (new JSDOM(`<body>MOCKED DOM</body>`)).window;
 
 jest.mock('./helper.js');
+
+
+import displayTasks from '../src/index.js';
 
 describe('Add and Remove', () => {
   test('add function which returns an array', () => {
@@ -102,9 +103,20 @@ describe('Clear All Btn', () => {
 });
 
 describe('DOM manipulations', ()=>{
-  test('displayTasks()', ()=>{
-    document.body.innerHTML = `<div id='list'>check</div>`
-    console.log(document.body.innerHTML);
+const { document } = (new JSDOM(`<!DOCTYPE html>`)).window;
+  test('display the tasks in the DOM', ()=>{
+   
+    const container =  displayTasks()
+
+    const list = container.querySelectorAll('div.listItem');
+
+    expect(container).toBeDefined();
+    expect(container).toHaveProperty('id', 'list')
+    expect(list).toContain(list[2])
+    expect(typeof container).toBe('object');
+    expect(list).toHaveLength(3);
+    expect(Number(list[0].children[0].dataset.id) === 1).toBeTruthy()
+    expect(Number(list[1].children[0].dataset.id) === 1).toBeFalsy()
   })
 })
 

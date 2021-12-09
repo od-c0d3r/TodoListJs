@@ -1,11 +1,11 @@
 import './style.scss';
 import checkboxListener from './modules/taskCheck.js';
 import { userWatcher } from './modules/crud.js';
-import { getTasksFromLocalStorage } from '../test/helper.js';
+import { getTasksFromLocalStorage, getElem, createItems } from '../test/helper.js';
 
-export function displayTasks() {
+export default function displayTasks() {
   const list = getTasksFromLocalStorage();
-  const container = document.getElementById('list');
+  const container = getElem();
   container.innerHTML = '';
 
   if (list.length === 0) {
@@ -14,9 +14,8 @@ export function displayTasks() {
   } else {
     container.classList.remove('emptyList');
     list.forEach((task, index, list) => {
-      const [listItem, checkbox, taskData, taskBtn] = ['div', 'input', 'span', 'button'].map((item) => document.createElement(item));
-
-      taskData.innerText = `${task.desc}`;
+      const { listItem, checkbox, taskData, taskBtn}= createItems();
+      taskData.innerHTML = `${task.desc}`;
       taskData.className = 'listSpan';
       checkbox.type = 'checkbox';
       if (task.comp === true) {
@@ -31,11 +30,13 @@ export function displayTasks() {
 
       listItem.className = 'listItem';
       listItem.append(checkbox, ' ', taskData, taskBtn);
-      container.append(listItem);
+      container.appendChild(listItem)
     });
   }
+  return container
 }
 
-displayTasks();
-checkboxListener();
-userWatcher(displayTasks);
+
+// displayTasks();
+// checkboxListener();
+// userWatcher(displayTasks);
