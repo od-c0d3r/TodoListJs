@@ -9,6 +9,8 @@
 
 > Milestone 3 : The CRUD (create, update, delete) methods Implemented. All the elements of the user interface will be fully functional.
 
+> Milestone 4 : Getting started with Jest and implement Unit testing for app functionlaity and DOM manipulation.
+
 <div style="float:right;">
 
 <img align="right" src="./doc/app_screenshot.png" style="width:300px;">

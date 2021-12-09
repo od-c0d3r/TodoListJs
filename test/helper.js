@@ -13,10 +13,10 @@ export function getElem() {
 
 export function createItems() {
   const [listItem, checkbox, taskData, taskBtn] = ['div', 'input', 'span', 'button'].map((item) => document.createElement(item));
-  return { 
+  return {
     listItem,
     checkbox,
     taskData,
-    taskBtn
-  }
+    taskBtn,
+  };
 }

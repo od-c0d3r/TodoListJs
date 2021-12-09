@@ -1,14 +1,10 @@
-import { toggleStatues } from '../src/modules/taskCheck.js'
-import { add, remove, edit, clearCompleted } from '../src/modules/crud.js';
-import { getTasksFromLocalStorage, setTasksToLocalStorage, getElem } from './__mocks__/helper.js';
-
-import jsdom from 'jsdom';
-const { JSDOM } = jsdom;
+import { toggleStatues } from '../src/modules/taskCheck.js';
+import {
+  add, remove, edit, clearCompleted, displayTasks,
+} from '../src/modules/crud.js';
+import { getTasksFromLocalStorage, setTasksToLocalStorage } from './__mocks__/helper.js';
 
 jest.mock('./helper.js');
-
-
-import displayTasks from '../src/index.js';
 
 describe('Add and Remove', () => {
   test('add function which returns an array', () => {
@@ -59,64 +55,61 @@ describe('Edit and Update', () => {
     const expected = {
       desc: text,
       comp: false,
-      index: 1
+      index: 1,
     };
     const result = edit(id, text);
     const beforeEdit = getTasksFromLocalStorage()[0].desc;
-    const afterEdit = result.desc
+    const afterEdit = result.desc;
     expect(result).toEqual(expected);
     expect(beforeEdit !== afterEdit).toBeTruthy();
     expect(typeof result).toEqual('object');
-  })
+  });
 
   test('updates the status of the completed', () => {
     const expected = {
       desc: 'Task 1',
       comp: true,
-      index: 1
-    }
-    const result = toggleStatues(id)
+      index: 1,
+    };
+    const result = toggleStatues(id);
     const beforeChange = getTasksFromLocalStorage()[0].comp;
-    const afterChange = result.comp
-    expect(result).toEqual(expected)
-    expect(beforeChange).toBeFalsy()
-    expect(afterChange).toBeTruthy()
-    expect(beforeChange !== afterChange).toBeTruthy()
-    expect(typeof afterChange).toBe('boolean')
-  })
+    const afterChange = result.comp;
+    expect(result).toEqual(expected);
+    expect(beforeChange).toBeFalsy();
+    expect(afterChange).toBeTruthy();
+    expect(beforeChange !== afterChange).toBeTruthy();
+    expect(typeof afterChange).toBe('boolean');
+  });
 });
 
 describe('Clear All Btn', () => {
   test('clear all objects with completed attribute', () => {
-    let expected = [{
+    const expected = [{
       desc: 'Task 1',
       comp: false,
       index: 1,
-    }]
-  
-    let result = clearCompleted()
-    expect(result).toEqual(expected)
-    expect(result.length).toEqual(1)
-    expect(typeof result).toBe('object')
+    }];
+
+    const result = clearCompleted();
+    expect(result).toEqual(expected);
+    expect(result.length).toEqual(1);
+    expect(typeof result).toBe('object');
     expect(result[0].comp).toBe(false);
-  })
+  });
 });
 
-describe('DOM manipulations', ()=>{
-const { document } = (new JSDOM(`<!DOCTYPE html>`)).window;
-  test('display the tasks in the DOM', ()=>{
-   
-    const container =  displayTasks()
+describe('DOM manipulations', () => {
+  test('display the tasks in the DOM', () => {
+    const container = displayTasks();
 
     const list = container.querySelectorAll('div.listItem');
 
     expect(container).toBeDefined();
-    expect(container).toHaveProperty('id', 'list')
-    expect(list).toContain(list[2])
+    expect(container).toHaveProperty('id', 'list');
+    expect(list).toContain(list[2]);
     expect(typeof container).toBe('object');
     expect(list).toHaveLength(3);
-    expect(Number(list[0].children[0].dataset.id) === 1).toBeTruthy()
-    expect(Number(list[1].children[0].dataset.id) === 1).toBeFalsy()
-  })
-})
-
+    expect(Number(list[0].children[0].dataset.id) === 1).toBeTruthy();
+    expect(Number(list[1].children[0].dataset.id) === 1).toBeFalsy();
+  });
+});
