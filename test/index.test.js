@@ -1,6 +1,11 @@
+import { toggleStatues } from '../src/modules/taskCheck.js'
 import { add, remove, edit, clearCompleted } from '../src/modules/crud.js';
-import {toggleStatues} from '../src/modules/taskCheck.js'
 import { getTasksFromLocalStorage, setTasksToLocalStorage } from './__mocks__/helper.js';
+import { displayTasks } from '../src/index.js';
+
+import jsdom from 'jsdom';
+const { JSDOM } = jsdom;
+const { document } = (new JSDOM(`<body>MOCKED DOM</body>`)).window;
 
 jest.mock('./helper.js');
 
@@ -56,21 +61,21 @@ describe('Edit and Update', () => {
       index: 1
     };
     const result = edit(id, text);
-    const beforeEdit= getTasksFromLocalStorage()[0].desc;
+    const beforeEdit = getTasksFromLocalStorage()[0].desc;
     const afterEdit = result.desc
     expect(result).toEqual(expected);
-    expect(beforeEdit!==afterEdit).toBeTruthy();
+    expect(beforeEdit !== afterEdit).toBeTruthy();
     expect(typeof result).toEqual('object');
   })
 
-  test('updates the status of the completed', ()=> {
+  test('updates the status of the completed', () => {
     const expected = {
       desc: 'Task 1',
       comp: true,
       index: 1
     }
     const result = toggleStatues(id)
-    const beforeChange =  getTasksFromLocalStorage()[0].comp;
+    const beforeChange = getTasksFromLocalStorage()[0].comp;
     const afterChange = result.comp
     expect(result).toEqual(expected)
     expect(beforeChange).toBeFalsy()
@@ -80,16 +85,26 @@ describe('Edit and Update', () => {
   })
 });
 
-describe('clear all objects with completed attribute',()=>{
-  let expected = [{
-    desc: 'Task 1',
-    comp: false,
-    index: 1,
-  }]
+describe('Clear All Btn', () => {
+  test('clear all objects with completed attribute', () => {
+    let expected = [{
+      desc: 'Task 1',
+      comp: false,
+      index: 1,
+    }]
+  
+    let result = clearCompleted()
+    expect(result).toEqual(expected)
+    expect(result.length).toEqual(1)
+    expect(typeof result).toBe('object')
+    expect(result[0].comp).toBe(false);
+  })
+});
 
-  let result = clearCompleted()
-  expect(result).toEqual(expected)
-  expect(result.length).toEqual(1)
-  expect(typeof result).toBe('object')
-  expect(result[0].comp).toBe(false);
+describe('DOM manipulations', ()=>{
+  test('displayTasks()', ()=>{
+    document.body.innerHTML = `<div id='list'></div>`
+    console.log(document.body.innerHTML);
+  })
 })
+

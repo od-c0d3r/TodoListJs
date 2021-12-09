@@ -3,7 +3,7 @@ import checkboxListener from './modules/taskCheck.js';
 import { userWatcher } from './modules/crud.js';
 import { getTasksFromLocalStorage } from './modules/helper.js';
 
-function displayTasks() {
+export function displayTasks() {
   const list = getTasksFromLocalStorage();
   const container = document.getElementById('list');
   container.innerHTML = '';
