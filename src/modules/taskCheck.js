@@ -1,18 +1,12 @@
-function toggleStatues(taskId) {
-  const list = JSON.parse(localStorage.getItem('list'));
+import { getTasksFromLocalStorage, setTasksToLocalStorage } from '../../test/helper.js';
+
+export function toggleStatues(taskId) {
+  const list = getTasksFromLocalStorage();
   list[taskId - 1].comp = !list[taskId - 1].comp;
-  localStorage.setItem('list', JSON.stringify(list));
+  setTasksToLocalStorage(list);
+  return list[taskId - 1];
 }
 
-function getTaskId(e) {
+export function getTaskId(e) {
   return e.target.getAttribute('data-id');
-}
-
-export default function checkboxListener() {
-  document.addEventListener('click', (e) => {
-    if (e.target.type === 'checkbox') {
-      const taskId = getTaskId(e);
-      toggleStatues(taskId);
-    }
-  });
 }

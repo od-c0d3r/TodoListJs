@@ -1,7 +1,44 @@
-import { getTasksFromLocalStorage, setTasksToLocalStorage } from './helper.js';
+import {
+  getTasksFromLocalStorage, setTasksToLocalStorage, getElem, createItems,
+} from '../../test/helper.js';
 
 let editFlag = false;
 let editElement = '';
+
+export function displayTasks() {
+  const list = getTasksFromLocalStorage();
+  const container = getElem();
+  container.innerHTML = '';
+
+  if (list.length === 0) {
+    container.innerHTML = '💭 Add somthing you wanna finish today 💭';
+    container.classList.add('emptyList');
+  } else {
+    container.classList.remove('emptyList');
+    list.forEach((task, index, list) => {
+      const {
+        listItem, checkbox, taskData, taskBtn,
+      } = createItems();
+      taskData.innerHTML = `${task.desc}`;
+      taskData.className = 'listSpan';
+      checkbox.type = 'checkbox';
+      if (task.comp === true) {
+        checkbox.checked = true;
+      } else {
+        checkbox.checked = false;
+      }
+      [listItem, checkbox, taskBtn].forEach((element) => element.setAttribute('data-id', list.indexOf(task) + 1));
+      taskBtn.style.cssFloat = 'right';
+      taskBtn.className = 'taskBtn';
+      taskBtn.innerText = ':';
+
+      listItem.className = 'listItem';
+      listItem.append(checkbox, ' ', taskData, taskBtn);
+      container.appendChild(listItem);
+    });
+  }
+  return container;
+}
 
 export function add(text) {
   const list = getTasksFromLocalStorage();
@@ -14,11 +51,11 @@ export function add(text) {
   return list;
 }
 
-function edit(id, text) {
+export function edit(id, text) {
   const list = getTasksFromLocalStorage();
   list[id - 1].desc = text;
   setTasksToLocalStorage(list);
-  return list;
+  return list[id - 1];
 }
 
 export function remove(id) {
@@ -29,11 +66,11 @@ export function remove(id) {
   return list;
 }
 
-function clearCompleted() {
+export function clearCompleted() {
   const list = getTasksFromLocalStorage();
   const curatedList = list.filter((task) => task.comp === false);
   setTasksToLocalStorage(curatedList);
-  return list;
+  return curatedList;
 }
 
 function showEditInput(div) {
