@@ -103,7 +103,7 @@ describe('Clear All Btn', () => {
 
 describe('DOM manipulations', ()=>{
   test('displayTasks()', ()=>{
-    document.body.innerHTML = `<div id='list'></div>`
+    document.body.innerHTML = `<div id='list'>check</div>`
     console.log(document.body.innerHTML);
   })
 })
