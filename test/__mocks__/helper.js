@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+
 import jsdom from 'jsdom';
 
 const { JSDOM } = jsdom;
